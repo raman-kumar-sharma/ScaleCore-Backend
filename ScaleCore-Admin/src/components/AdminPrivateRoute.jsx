@@ -1,0 +1,9 @@
+import { Navigate } from 'react-router-dom';
+import { useAdminAuth } from '../context/AdminAuthContext';
+
+export default function AdminPrivateRoute({ children }) {
+  const { admin } = useAdminAuth();
+  if (!admin) return <Navigate to="/login" replace />;
+  if (admin.role !== 'admin') return <Navigate to="/login" replace />;
+  return children;
+}
